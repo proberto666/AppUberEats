@@ -12,18 +12,27 @@ namespace WebApiUberEats.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class NegocioController : ControllerBase
+    public class OrdenesController : ControllerBase
     {
         private readonly IConfiguration Configuration;
-        public NegocioController(IConfiguration configuration)
+        public OrdenesController(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        // GET api/<NegocioController>/5
-        [HttpGet("{usuario}")]
-        public ResponseModel Get(string usuario)
+
+        // GET: api/<OrdenesController>
+        [HttpGet]
+        public ResponseModel Get()
         {
-            return new NegocioModel().GetUsario(Configuration.GetConnectionString("UberEatsDB"), usuario);
+            return new OrdenesModel().GetAll(Configuration.GetConnectionString("UberEatsDB"));
         }
+
+        // POST api/<OrdenesController>
+        [HttpPost]
+        public ResponseModel Post([FromBody] OrdenesModel orden)
+        {
+            return orden.Insert(Configuration.GetConnectionString("UberEatsDB"));
+        }
+
     }
 }
