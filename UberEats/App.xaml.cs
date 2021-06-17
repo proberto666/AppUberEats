@@ -13,14 +13,12 @@ namespace UberEats
             InitializeComponent();
             UsuarioLoged = new RestauranteModel
             {
-                ID = 0,
+                IdRestaurante = 0,
                 Nombre = "La embajada",
                 Direccion = "Av. Universidad #283",
-                Imagen = "http://lorempixel.com/120/120",
+                Foto = "http://lorempixel.com/120/120",
                 Latitud = 21.150012857849237,
-                Longitud = -101.70929987271914,
-                Usuario = "123",
-                Contrasena = "456"
+                Longitud = -101.70929987271914
             };
             MainPage = new NavigationPage(new Views.InicioSesionView());
            

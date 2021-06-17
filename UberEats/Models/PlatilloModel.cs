@@ -6,9 +6,16 @@ namespace UberEats.Models
 {
     public class PlatilloModel
     {
-        public int ID { get; set; }
+        public int IdPlatillo { get; set; }
+
         public string Nombre { get; set; }
+
         public double Precio { get; set; }
-        public string Imagen { get; set; }
+
+        public string Foto { get; set; }
+
+        public int IdRestaurante { get; set; }
+
+        public string NombreRestaurante { get; set; }
     }
 }
