@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:renders="clr-namespace:UberEats.Renders"
+             x:Class="UberEats.Views.CuentaDetalleView">
+    <ContentPage.ToolbarItems>
+        <!--BOTON GUARDAR-->
+        <ToolbarItem 
+            Text="Guardar"
+            Command="{Binding GuardarCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            Padding="50">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="170"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                    WidthRequest="100" 
+                    Text="Nombre: " 
+                    VerticalOptions="End" 
+                    HorizontalOptions="End" 
+                    FontFamily="uberMedium"/>
+                
+                <!--INPUT NOMBRE RESTAURANTE-->
+                <Entry 
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
+                    WidthRequest="218" 
+                    VerticalOptions="Start" 
+                    Placeholder="Nombre Restaurante"/>
+
+                <!--PREVIEW IMAGEN-->
+                <Image 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
+                    Source="http://lorempixel.com/170/170/" 
+                    WidthRequest="220"/>
+                
+                <!--BOTON CARGAR FOTO-->
+                <Button 
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    Text="Subir foto" 
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    VerticalOptions="Start"/>
+                
+                <!--BOTON TOMAR FOTO-->
+                <Button 
+                    Grid.Row="3" 
+                    Grid.Column="1" 
+                    Text="Tomar foto" 
+                    WidthRequest="100" 
+                    HeightRequest="40" 
+                    VerticalOptions="Center"/>
+
+                <Label 
+                    Grid.Row="5" 
+                    Grid.Column="0" 
+                    WidthRequest="100" 
+                    Text="Dirección: " 
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Start" 
+                    FontFamily="uberMedium"/>
+                
+                <!--INPUT DIRECCIÓN-->
+                <Entry 
+                    Grid.Row="5" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="5"
+                    WidthRequest="370" 
+                    HorizontalOptions="End" 
+                    Placeholder="Dirección Restaurante"/>
+                
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="3" 
+                    Text="Lat: " 
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Start" 
+                    FontFamily="uberMedium"/>
+                
+                <!--INPUT LATITUD-->
+                <Entry
+                    Grid.Row="0" 
+                    Grid.Column="3"
+                    Grid.ColumnSpan="2"
+                    WidthRequest="180" 
+                    HorizontalOptions="End"
+                    Placeholder="Latitud ubicación"/>
+  
+                <Label 
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="Lng: "
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    FontFamily="uberMedium"/>
+                
+                <!--INPUT LONGITUD-->
+                <Entry 
+                    Grid.Row="1" 
+                    Grid.Column="3"
+                    Grid.ColumnSpan="2"
+                    WidthRequest="180"
+                    HorizontalOptions="End"
+                    Placeholder="Longitud ubicación"/>
+
+                <!--MAPA-->
+                <maps:Map 
+                    x:Name="mapaRestaurante"  
+                    Grid.Row="2" 
+                    Grid.Column="3"
+                    Grid.ColumnSpan="2"
+                    BackgroundColor="Blue" 
+                    HeightRequest="220"
+                    WidthRequest="220"/>
+
+                <!--BOTON OBTENER COORDENADAS-->
+                <Button
+                    Grid.Row="3" 
+                    Grid.Column="3"
+                    Grid.ColumnSpan="2" 
+                    Text="Obtener coordenadas"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

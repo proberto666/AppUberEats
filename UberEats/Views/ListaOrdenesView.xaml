@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UberEats.Views.ListaOrdenesView">
+    <ContentPage.ToolbarItems>
+        <!--BOTON AGREGAR NUEVA ORDEN-->
+        <ToolbarItem 
+            Text="Agregar"
+            Command="{Binding AgregarCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout HeightRequest="50">
+            <StackLayout>
+                <Grid BackgroundColor="#3fc060" Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Text="FECHA" 
+                    FontFamily="uberBold"/>
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="2" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Text="CLIENTE"
+                    FontFamily="uberBold"/>
+                <Label
+                    Grid.Row="0" 
+                    Grid.Column="4" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    Text="TOTAL"
+                    FontFamily="uberBold"/>
+            </Grid>
+            </StackLayout>
+            <StackLayout>
+                <RefreshView>
+                    <ScrollView>
+                        <CollectionView
+                    x:Name="ListaOrdenes"
+                    SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label 
+                                            Grid.Row="0"
+                                            Grid.Column="0" 
+                                            HorizontalOptions="Center" 
+                                            VerticalOptions="Center"
+                                            Text="dd/mm/yyyy"
+                                            FontFamily="uberMedium"/>
+                                        <Label
+                                            Grid.Row="0" 
+                                            Grid.Column="2" 
+                                            HorizontalOptions="Center" 
+                                            VerticalOptions="Center"
+                                            Text="Cliente"
+                                            FontFamily="uberMedium"/>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="4"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Text="$0.00"
+                                            FontFamily="uberMedium"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+                </RefreshView>
+            </StackLayout>
+        </StackLayout>
+
+    </ContentPage.Content>
+    
+</ContentPage>

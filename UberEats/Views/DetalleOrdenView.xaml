@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UberEats.Views.DetalleOrdenView">
+    <ContentPage.ToolbarItems>
+        <!--BOTON AGREGAR-->
+        <ToolbarItem 
+            Text="Agregar"
+            Command="{Binding AgregarCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Text="Fecha: " 
+                    FontFamily="uberMedium" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"/>
+                <Label 
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Text="Cliente: " 
+                    FontFamily="uberMedium" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"/>
+                <Label 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Text="Total: " 
+                    FontFamily="uberMedium" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"/>
+                <Entry
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Placeholder="Fecha orden"
+                    WidthRequest="100"
+                    VerticalOptions="Center"/>
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Placeholder="Nombre cliente"
+                    WidthRequest="100"
+                    VerticalOptions="Center"/>
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Placeholder="Total $"
+                    WidthRequest="100"
+                    VerticalOptions="Center"/>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

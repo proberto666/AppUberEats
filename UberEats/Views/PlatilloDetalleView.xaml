@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UberEats.Views.PlatilloDetalleView">
+    <ContentPage.ToolbarItems>
+        <!--BOTON ELIMINAR-->
+        <ToolbarItem 
+            Text="Eliminar"
+            Command="{Binding EliminarCommand}"/>
+        <!--BOTON GUARDAR-->
+        <ToolbarItem 
+            Text="Guardar"
+            Command="{Binding GuardarCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Start"
+                    Text="Nombre: "
+                    FontFamily="uberMedium"/>
+                <Entry
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End" 
+                    Placeholder="Nombre Platillo"
+                    WidthRequest="155"
+                    FontFamily="uberMedium"/>
+
+                <Image 
+                    Grid.Row="1" 
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Source="http://lorempixel.com/220/220/" 
+                    WidthRequest="220"/>
+                <Button
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Text="Tomar Foto"/>
+                <Button
+                    Grid.Row="2" 
+                    Grid.Column="1"
+                    Text="Cargar Foto"/>
+                
+                
+
+                <Label 
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Start" 
+                    Text="Precio: "
+                    FontFamily="uberMedium"/>
+                <Entry 
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="End"
+                    Placeholder="0.0" 
+                    WidthRequest="170"
+                    FontFamily="uberMedium"/>
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
