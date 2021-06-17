@@ -16,7 +16,9 @@ namespace WebApiUberEats.Models
 
         public int IdOrden { get; set; }
 
-        public ResponseModel GetAll(string ConnectionString)
+        public int IdRestaurante { get; set; }
+
+        public List<OrdenesModel> GetAll(string ConnectionString, int id)
         {
             List<OrdenesModel> ordenes = new List<OrdenesModel>();
             try
@@ -24,9 +26,10 @@ namespace WebApiUberEats.Models
                 using (SqlConnection conn = new SqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    string tsql = "SELECT * FROM Ordenes";
+                    string tsql = "SELECT * FROM Ordenes Where IdRestaurante = @Id";
                     using (SqlCommand cmd = new SqlCommand(tsql, conn))
                     {
+                        cmd.Parameters.AddWithValue("@Id", id);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -36,27 +39,18 @@ namespace WebApiUberEats.Models
                                     IdOrden= (int)reader["IdOrden"],
                                     Cliente = reader["Cliente"].ToString(),
                                     Fecha = reader["Fecha"].ToString(),
-                                    Total = (double)reader["Total"]
+                                    Total = (double)reader["Total"],
+                                    IdRestaurante = (int)reader["IdRestaurante"]
                                 });
                             }
                         }
                     }
                 }
-                return new ResponseModel
-                {
-                    IsSucces = true,
-                    Message = "Ordenes obtenidas con exito",
-                    Response = ordenes
-                };
+                return ordenes;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new ResponseModel
-                {
-                    IsSucces = false,
-                    Message = $"Error al obtener Ordenes ({ex})",
-                    Response = null
-                };
+                return null;
             }
         }
 
@@ -68,13 +62,14 @@ namespace WebApiUberEats.Models
                 using (SqlConnection conn = new SqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    string tsql = "Insert into Ordenes (Cliente, Fecha, Total) Values (@Cliente, @Fecha, @Total) SELECT SCOPE_IDENTITY();";
+                    string tsql = "Insert into Ordenes (Cliente, Fecha, Total, IdRestaurante) Values (@Cliente, @Fecha, @Total, @IdRestaurante) SELECT SCOPE_IDENTITY();";
                     using (SqlCommand cmd = new SqlCommand(tsql, conn))
                     {
                         cmd.CommandType = System.Data.CommandType.Text;
                         cmd.Parameters.AddWithValue("@Cliente", this.Cliente);
                         cmd.Parameters.AddWithValue("@Fecha", this.Fecha);
                         cmd.Parameters.AddWithValue("@Total", this.Total);
+                        cmd.Parameters.AddWithValue("@IdRestaurante", this.IdRestaurante);
                         newId = cmd.ExecuteScalar();
                         if (newId != null && newId.ToString().Length > 0)
                         {

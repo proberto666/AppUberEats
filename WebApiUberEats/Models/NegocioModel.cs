@@ -16,7 +16,7 @@ namespace WebApiUberEats.Models
 
         public int IdRestaurante { get; set; }
 
-        public ResponseModel GetUsario(string ConnectionString, string usuario)
+        public NegocioModel GetUsario(string ConnectionString, string usuario)
         {
             try
             {
@@ -43,21 +43,11 @@ namespace WebApiUberEats.Models
                         }
                     }
                 }
-                return new ResponseModel
-                {
-                    IsSucces = true,
-                    Message = "Negocio obtenido con exito",
-                    Response =  negocio
-                };
+                return  negocio;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new ResponseModel
-                {
-                    IsSucces = false,
-                    Message = $"Error al obtener Negocio ({ex})",
-                    Response = null
-                };
+                return null;
             }
         }
     }

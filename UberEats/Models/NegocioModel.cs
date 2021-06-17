@@ -6,12 +6,12 @@ namespace UberEats.Models
 {
     public class NegocioModel
     {
-        public int NumNegocio { get; set; }
+        public int numNegocio { get; set; }
 
-        public string Usuario { get; set; }
+        public string usuario { get; set; }
 
-        public string Contrasena { get; set; }
+        public string contrasena { get; set; }
 
-        public int IdRestaurante { get; set; }
+        public int idRestaurante { get; set; }
     }
 }

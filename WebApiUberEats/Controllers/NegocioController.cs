@@ -21,7 +21,7 @@ namespace WebApiUberEats.Controllers
         }
         // GET api/<NegocioController>/5
         [HttpGet("{usuario}")]
-        public ResponseModel Get(string usuario)
+        public NegocioModel Get(string usuario)
         {
             return new NegocioModel().GetUsario(Configuration.GetConnectionString("UberEatsDB"), usuario);
         }

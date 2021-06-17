@@ -21,10 +21,10 @@ namespace WebApiUberEats.Controllers
         }
 
         // GET: api/<OrdenesController>
-        [HttpGet]
-        public ResponseModel Get()
+        [HttpGet("{id}")]
+        public List<OrdenesModel> Get(int id)
         {
-            return new OrdenesModel().GetAll(Configuration.GetConnectionString("UberEatsDB"));
+            return new OrdenesModel().GetAll(Configuration.GetConnectionString("UberEatsDB"),id);
         }
 
         // POST api/<OrdenesController>

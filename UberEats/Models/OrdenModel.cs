@@ -13,5 +13,7 @@ namespace UberEats.Models
         public double Total { get; set; }
 
         public int IdOrden { get; set; }
+
+        public int IdRestaurante { get; set; }
     }
 }

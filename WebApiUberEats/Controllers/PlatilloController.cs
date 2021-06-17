@@ -23,7 +23,7 @@ namespace WebApiUberEats.Controllers
 
         // GET api/<PlatilloController>/5
         [HttpGet("{id}")]
-        public ResponseModel Get(int id)
+        public List<PlatilloModel> Get(int id)
         {
             return new PlatilloModel().GetId(Configuration.GetConnectionString("UberEatsDB"), id) ;
         }

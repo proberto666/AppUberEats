@@ -18,7 +18,7 @@ namespace UberEats.Views
         {
             InitializeComponent();
             BindingContext = new ListaPlatillosViewModel();
-            RestauranteModel RestauranteSeleccionado = UberEats.App.UsuarioLoged;
+            RestauranteModel RestauranteSeleccionado = UberEats.App.RestauranteLoged;
             //mapaRestaurante.restaurante = RestauranteSeleccionado;
 
             //establecer ubicación

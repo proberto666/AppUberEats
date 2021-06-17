@@ -20,7 +20,7 @@ namespace WebApiUberEats.Models
 
         public string NombreRestaurante { get; set; }
 
-        public ResponseModel GetId(string ConnectionString, int id)
+        public List<PlatilloModel> GetId(string ConnectionString, int id)
         {
             try
             {
@@ -52,21 +52,11 @@ namespace WebApiUberEats.Models
                     }
                 }
 
-                return new ResponseModel
-                {
-                    IsSucces = true,
-                    Message = "Menu obtenido con exito",
-                    Response = ListaPlatillos
-                };
+                return ListaPlatillos;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new ResponseModel
-                {
-                    IsSucces = false,
-                    Message = $"Error al obtener Restaurantes ({ex})",
-                    Response = null
-                };
+                return null;
             }
         }
 

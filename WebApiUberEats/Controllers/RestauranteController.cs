@@ -21,14 +21,14 @@ namespace WebApiUberEats.Controllers
 
         // GET: api/<RestauranteController>
         [HttpGet]
-        public ResponseModel Get()
+        public List<RestauranteModel> Get()
         {
             return new RestauranteModel().GetAll(Configuration.GetConnectionString("UberEatsDB"));
         }
 
         // GET api/<RestauranteController>/5
         [HttpGet("{id}")]
-        public ResponseModel Get(int id)
+        public RestauranteModel Get(int id)
         {
             return new RestauranteModel().GetId(Configuration.GetConnectionString("UberEatsDB"), id);
         }

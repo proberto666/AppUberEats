@@ -21,7 +21,7 @@ namespace WebApiUberEats.Models
         public double Latitud { get; set; }
 
 
-        public ResponseModel GetAll(string ConnectionString)
+        public List<RestauranteModel> GetAll(string ConnectionString)
         {
             List<RestauranteModel> restaurantes = new List<RestauranteModel>();
             try
@@ -49,25 +49,15 @@ namespace WebApiUberEats.Models
                         }
                     }
                 }
-                return new ResponseModel
-                {
-                    IsSucces = true,
-                    Message = "Restaurantes obtenidos con exito",
-                    Response = restaurantes
-                };
+                return  restaurantes;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new ResponseModel
-                {
-                    IsSucces = false,
-                    Message = $"Error al obtener Restaurantes ({ex})",
-                    Response = null
-                };
+                return null;
             }
         }
 
-        public ResponseModel GetId(string ConnectionString, int id)
+        public RestauranteModel GetId(string ConnectionString, int id)
         {
             RestauranteModel restaurante = new RestauranteModel();
             try
@@ -96,21 +86,11 @@ namespace WebApiUberEats.Models
                         }
                     }
                 }
-                return new ResponseModel
-                {
-                    IsSucces = true,
-                    Message = "Restaurante obtenidos con exito",
-                    Response = restaurante
-                };
+                return restaurante;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return new ResponseModel
-                {
-                    IsSucces = false,
-                    Message = $"Error al obtener Restaurante ({ex})",
-                    Response = null
-                };
+                return  null;
             }
         }
 

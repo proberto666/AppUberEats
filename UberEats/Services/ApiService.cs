@@ -10,7 +10,7 @@ namespace UberEats.Services
 {
     class ApiService
     {
-        public string ApiURL = "http://192.168.0.200";
+        public string ApiURL = "https://ubereatsexamen.azurewebsites.net/";
 
         public async Task<ApiResponse> GetDataAsync<T>(string controller)
         {
@@ -33,6 +33,124 @@ namespace UberEats.Services
                 }
 
                 var data = JsonConvert.DeserializeObject<List<T>>(result);
+                return new ApiResponse
+                {
+                    IsSucces = true,
+                    Message = "Los datos fueron obtenidos de manera correcta",
+                    Response = data
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse
+                {
+                    IsSucces = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+
+        public async Task<ApiResponse> GetDataByStringAsync<T>(string controller, string usuario)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new System.Uri(ApiURL)
+                };
+                var response = await client.GetAsync(controller+"/"+usuario);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ApiResponse
+                    {
+                        IsSucces = false,
+                        Message = result
+                    };
+                }
+
+                var data = JsonConvert.DeserializeObject<T>(result);
+                return new ApiResponse
+                {
+                    IsSucces = true,
+                    Message = "Los datos fueron obtenidos de manera correcta",
+                    Response = data
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse
+                {
+                    IsSucces = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<ApiResponse> GetDataListByIntAsync<T>(string controller, int id)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new System.Uri(ApiURL)
+                };
+                var response = await client.GetAsync(controller + "/" + id);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ApiResponse
+                    {
+                        IsSucces = false,
+                        Message = result
+                    };
+                }
+
+                var data = JsonConvert.DeserializeObject<List<T>>(result);
+                return new ApiResponse
+                {
+                    IsSucces = true,
+                    Message = "Los datos fueron obtenidos de manera correcta",
+                    Response = data
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse
+                {
+                    IsSucces = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<ApiResponse> GetDataByIntAsync<T>(string controller, int id)
+        {
+            try
+            {
+                var client = new HttpClient
+                {
+                    BaseAddress = new System.Uri(ApiURL)
+                };
+                var response = await client.GetAsync(controller + "/" + id);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ApiResponse
+                    {
+                        IsSucces = false,
+                        Message = result
+                    };
+                }
+
+                var data = JsonConvert.DeserializeObject<T>(result);
                 return new ApiResponse
                 {
                     IsSucces = true,
