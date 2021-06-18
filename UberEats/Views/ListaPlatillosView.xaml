@@ -89,17 +89,18 @@
                         <Label 
                             Grid.Row="4" 
                             Grid.Column="0" 
-                            Text="x: 0.000" 
-                            FontFamily="uberMedium" 
-                            FontSize="Micro"/>
-
-                        <Label 
-                            Grid.Row="4" 
-                            Grid.Column="1" 
-                            Text="y: 0.000" 
+                            Text="{Binding Latitud}" 
                             FontFamily="uberMedium" 
                             FontSize="Micro"/>
                         
+                        <Label 
+                            Grid.Row="4" 
+                            Grid.Column="1" 
+                            Text="{Binding Longitud}" 
+                            FontFamily="uberMedium" 
+                            FontSize="Micro"/>
+
+
                         <!--BOTON PARA VER ORDENES-->
                         <Button 
                             Grid.Row="6" 

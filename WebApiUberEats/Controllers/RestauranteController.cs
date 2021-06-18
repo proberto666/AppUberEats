@@ -41,10 +41,10 @@ namespace WebApiUberEats.Controllers
         }
 
         // PUT api/<RestauranteController>/5
-        [HttpPut("{id}")]
-        public ResponseModel Put(int id, [FromBody] RestauranteModel restaurante)
+        [HttpPut]
+        public ResponseModel Put([FromBody] RestauranteModel restaurante)
         {
-            return restaurante.Update(Configuration.GetConnectionString("UberEatsDB"), id);
+            return restaurante.Update(Configuration.GetConnectionString("UberEatsDB"));
         }
 
         // DELETE api/<RestauranteController>/5

@@ -58,6 +58,19 @@ namespace UberEats.ViewModels
             set => SetProperty(ref _Direccion, value);
         }
 
+        double _Latitud;
+        public double Latitud
+        {
+            get => _Latitud;
+            set => SetProperty(ref _Latitud, value);
+        }
+
+        double _Longitud;
+        public double Longitud
+        {
+            get => _Longitud;
+            set => SetProperty(ref _Longitud, value);
+        }
         //--------------------------------
 
         //---------FUNCIONES AQUÍ---------
@@ -68,6 +81,8 @@ namespace UberEats.ViewModels
             Direccion = UberEats.App.RestauranteLoged.Direccion;
             NombreRestaurante = UberEats.App.RestauranteLoged.Nombre;
             FotoRestaurante = UberEats.App.RestauranteLoged.Foto;
+            Latitud = UberEats.App.RestauranteLoged.Latitud;
+            Longitud = UberEats.App.RestauranteLoged.Longitud;
         }
 
         private async void cargarPlatillos()

@@ -36,10 +36,10 @@ namespace WebApiUberEats.Controllers
         }
 
         // PUT api/<PlatilloController>/5
-        [HttpPut("{id}")]
-        public ResponseModel Put(int id, [FromBody] PlatilloModel platillo)
+        [HttpPut]
+        public ResponseModel Put([FromBody] PlatilloModel platillo)
         {
-            return platillo.Update(Configuration.GetConnectionString("UberEatsDB"), id);
+            return platillo.Update(Configuration.GetConnectionString("UberEatsDB"));
         }
 
         // DELETE api/<PlatilloController>/5
