@@ -146,7 +146,7 @@ namespace WebApiUberEats.Models
             }
         }
 
-        public ResponseModel Update(string ConnectionString, int id)
+        public ResponseModel Update(string ConnectionString)
         {
             try
             {
@@ -162,13 +162,13 @@ namespace WebApiUberEats.Models
                         cmd.Parameters.AddWithValue("@Direccion", this.Direccion);
                         cmd.Parameters.AddWithValue("@Longitud", this.Longitud);
                         cmd.Parameters.AddWithValue("@Latitud", this.Latitud);
-                        cmd.Parameters.AddWithValue("@Id", id);
+                        cmd.Parameters.AddWithValue("@Id", this.IdRestaurante);
                         cmd.ExecuteNonQuery();
                         return new ResponseModel
                         {
                             IsSucces = true,
                             Message = "Restaurante actualizado con exito",
-                            Response = id
+                            Response = this.IdRestaurante
                         };
                     }
                 }

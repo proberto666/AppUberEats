@@ -150,7 +150,8 @@
                     Grid.Row="3" 
                     Grid.Column="3"
                     Grid.ColumnSpan="2" 
-                    Text="Obtener coordenadas"/>
+                    Text="Obtener coordenadas"
+                    Command="{Binding ObtenerCoordCommand}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

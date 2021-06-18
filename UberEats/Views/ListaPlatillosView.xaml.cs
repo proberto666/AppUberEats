@@ -14,12 +14,26 @@ namespace UberEats.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListaPlatillosView : ContentPage
     {
+        private static ListaPlatillosView instance;
+
         public ListaPlatillosView()
         {
+            instance = this;
             InitializeComponent();
             BindingContext = new ListaPlatillosViewModel();
+
+            recargarMapa();
+
+        }
+
+        public static ListaPlatillosView GetInstance()
+        {
+            return instance;
+        }
+
+        public void recargarMapa()
+        {
             RestauranteModel RestauranteSeleccionado = UberEats.App.RestauranteLoged;
-            //mapaRestaurante.restaurante = RestauranteSeleccionado;
 
             //establecer ubicación
             mapaRestaurante.MoveToRegion(
@@ -31,6 +45,11 @@ namespace UberEats.Views
                     Distance.FromMiles(.5)
                 )
             );
+
+            if (mapaRestaurante.Pins.Count == 1)
+            {
+                mapaRestaurante.Pins.Clear();
+            }
 
             //agregar pin
             mapaRestaurante.Pins.Add(
@@ -44,8 +63,6 @@ namespace UberEats.Views
                     )
                 }
             );
-
-
         }
     }
 }
