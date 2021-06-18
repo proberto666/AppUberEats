@@ -1,7 +1,5 @@
 ﻿using Plugin.Media;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UberEats.Models;
 using UberEats.Services;
 using Xamarin.Forms;
@@ -10,7 +8,32 @@ namespace UberEats.ViewModels
 {
     public class DetallePlatilloViewModel : BaseViewModel
     {
-        //====COMANDOS AQUÍ====
+        //---------INICIALIZACIÓN---------
+
+        PlatilloModel platilloSelected;
+
+        //En caso de que sea un platillo nuevo
+        public DetallePlatilloViewModel(ListaPlatillosViewModel lista)
+        {
+            ListaPlatillos = lista;
+        }
+
+        //En caso de que se vaya a editar un platillo
+        public DetallePlatilloViewModel(ListaPlatillosViewModel lista, PlatilloModel platilloSelected)
+        {
+            PlatilloSelected = platilloSelected; //Se asigna el valor de la variable global (la cual está bindeada a la vista) a platilloSelectd
+            ListaPlatillos = lista;
+
+            _IdPlatillo = platilloSelected.IdPlatillo;
+            _Nombre = platilloSelected.Nombre;
+            _Foto = platilloSelected.Foto;
+            _Precio = platilloSelected.Precio;
+        }
+
+        //--------------------------------
+
+
+        //-----COMANDOS AQUÍ-----
 
         Command _GuardarCommand;
         public Command GuardarCommand => _GuardarCommand ?? (_GuardarCommand = new Command(GuardarAction));
@@ -33,6 +56,19 @@ namespace UberEats.ViewModels
 
         ListaPlatillosViewModel ListaPlatillos;
 
+        public PlatilloModel PlatilloSelected
+        {
+            get => platilloSelected;
+            set => SetProperty(ref platilloSelected, value);
+        }
+
+        int _IdPlatillo;
+        public int IdPlatillo
+        {
+            get => _IdPlatillo;
+            set => SetProperty(ref _IdPlatillo, value);
+        }
+
         string _Nombre;
         public string Nombre
         {
@@ -54,34 +90,45 @@ namespace UberEats.ViewModels
             set => SetProperty(ref _Foto, value);
         }
 
+        string imgBase64;
+        public string ImageBase64
+        {
+            get => imgBase64;
+            set => SetProperty(ref imgBase64, value);
+        }
+
         //--------------------------------
 
         //---------FUNCIONES AQUÍ---------
-
-        public DetallePlatilloViewModel(ListaPlatillosViewModel lista)
-        {
-            ListaPlatillos = lista;
-        }
 
         private async void GuardarAction(object obj)
         {
             ApiResponse response;
             try
             {
-                if(_Foto == null)
+                if (_Foto == null)
                 {
                     _Foto = "";
                 }
 
                 PlatilloModel platillo = new PlatilloModel
                 {
+                    IdPlatillo = _IdPlatillo,
                     Nombre = _Nombre,
                     Precio = _Precio,
                     Foto = _Foto,
                     IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante
                 };
 
-                response = await new ApiService().PostDataAsync("platillo", platillo);
+                if (platillo.IdPlatillo > 0)
+                {
+                    response = await new ApiService().PutDataAsync("platillo", platillo);
+                }
+                else
+                {
+                    response = await new ApiService().PostDataAsync("platillo", platillo);
+                }
+                
                 if (response == null || !response.IsSucces)
                 {
                     await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al procesar la orden {response.Message}", "Ok");
@@ -91,16 +138,34 @@ namespace UberEats.ViewModels
                 ListaPlatillos.recargarPlatillos();
                 await Application.Current.MainPage.Navigation.PopAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                await App.Current.MainPage.DisplayAlert("AppTasks", $"Se generó un error ({ex.Message})", "OK");
                 throw;
             }
         }
 
-        private void EliminarAction(object obj)
+        private async void EliminarAction(object obj)
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            if(_IdPlatillo > 0)
+            {
+                ApiResponse response;
+                try
+                {
+                    response = await new ApiService().DeleteDataAsync("platillo/" + IdPlatillo);
+                    if (response == null || !response.IsSucces)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al eliminar el platillo: {response.Message}", "Ok");
+                        return;
+                    }
+                    ListaPlatillos.recargarPlatillos();
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         private async void CancelarAction()
@@ -129,7 +194,7 @@ namespace UberEats.ViewModels
                 if (file == null)
                     return;
 
-                //GasSelected.Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
 
             }
             catch (Exception ex)
@@ -158,7 +223,7 @@ namespace UberEats.ViewModels
                 if (file == null)
                     return;
 
-                //GasFoto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
             }
             catch (Exception ex)
             {

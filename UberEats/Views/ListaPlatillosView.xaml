@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:converters="clr-namespace:UberEats.ImageConverter"
              xmlns:renders="clr-namespace:UberEats.Renders"
              x:Class="UberEats.Views.ListaPlatillosView">
 
@@ -15,6 +16,12 @@
             Text="Editar"
             Command="{Binding EditarCommand}"/>
     </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
 
@@ -149,8 +156,9 @@
                     <ScrollView>
                         <CollectionView 
                             x:Name="ListaPlatillos" 
+                            ItemsSource="{Binding ListaPlatillos}"
                             SelectionMode="Single"
-                            ItemsSource="{Binding ListaPlatillos}">
+                            SelectedItem="{Binding PlatilloSelected}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout 
@@ -168,7 +176,7 @@
                                             </Grid.RowDefinitions>
                                             <Image 
                                                 Grid.Row="0" 
-                                                Source="{Binding Foto}"
+                                                Source="{Binding Foto, Converter={StaticResource ImageConverter}}"
                                                 WidthRequest="180"/>
                                             <Label 
                                                 Grid.Row="1" 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UberEats.Views;
 using UberEats.Models;
 using Xamarin.Forms;
@@ -29,6 +27,19 @@ namespace UberEats.ViewModels
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
+
+        PlatilloModel _PlatilloSelected;
+        public PlatilloModel PlatilloSelected
+        {
+            get => _PlatilloSelected;
+            set
+            {
+                if (SetProperty(ref _PlatilloSelected, value))
+                {
+                    EditarAction(PlatilloSelected);
+                }
+            }
+        }
 
         List<PlatilloModel> _ListaPlatillos;
         public List<PlatilloModel> ListaPlatillos
@@ -89,12 +100,12 @@ namespace UberEats.ViewModels
 
         private void AgregarAction(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView(this));
+            Application.Current.MainPage.Navigation.PushAsync(new DetallePlatilloView(this));
         }
 
         private void EditarAction(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView(this));
+            Application.Current.MainPage.Navigation.PushAsync(new DetallePlatilloView(this, PlatilloSelected));
         }
 
         private void VerOrdenesAction(object obj)

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UberEats.Views.PlatilloDetalleView">
+             x:Class="UberEats.Views.DetallePlatilloView">
     <ContentPage.ToolbarItems>
         <!--BOTON ELIMINAR-->
         <ToolbarItem 
@@ -12,6 +12,7 @@
             Text="Guardar"
             Command="{Binding GuardarCommand}"/>
     </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout 
             HorizontalOptions="Center" 
@@ -36,6 +37,7 @@
                     HorizontalTextAlignment="Start"
                     Text="Nombre: "
                     FontFamily="uberMedium"/>
+                
                 <Entry
                     Grid.Row="0" 
                     Grid.Column="0"
@@ -48,21 +50,23 @@
                     Text="{Binding Nombre}"/>
 
                 <Image 
-                    Grid.Row="1" 
+                    Grid.Row="3" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Source="{Binding Foto}" 
                     WidthRequest="220"/>
+                
                 <Button
                     Grid.Row="2" 
                     Grid.Column="0" 
-                    Text="Tomar Foto"/>
+                    Text="Tomar Foto"
+                    Command="{Binding TomarFotografiaCommand}"/>
+                
                 <Button
                     Grid.Row="2" 
                     Grid.Column="1"
-                    Text="Cargar Foto"/>
-                
-                
+                    Text="Cargar Foto"
+                    Command="{Binding SeleccionarFotografiaCommand}"/>
 
                 <Label 
                     Grid.Row="3" 
@@ -71,6 +75,7 @@
                     HorizontalTextAlignment="Start" 
                     Text="Precio: "
                     FontFamily="uberMedium"/>
+                
                 <Entry 
                     Grid.Row="3"
                     Grid.Column="0"

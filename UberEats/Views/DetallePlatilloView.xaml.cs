@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UberEats.Models;
 using UberEats.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,12 +6,18 @@ using Xamarin.Forms.Xaml;
 namespace UberEats.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PlatilloDetalleView : ContentPage
+    public partial class DetallePlatilloView : ContentPage
     {
-        public PlatilloDetalleView(ListaPlatillosViewModel lista)
+        public DetallePlatilloView(ListaPlatillosViewModel lista)
         {
             InitializeComponent();
             BindingContext = new DetallePlatilloViewModel(lista);
+        }
+
+        public DetallePlatilloView(ListaPlatillosViewModel lista, PlatilloModel PlatilloSelected)
+        {
+            InitializeComponent();
+            BindingContext = new DetallePlatilloViewModel(lista, PlatilloSelected);
         }
     }
 }
