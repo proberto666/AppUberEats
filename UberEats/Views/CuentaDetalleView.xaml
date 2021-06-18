@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:converters="clr-namespace:UberEats.ImageConverter"
              xmlns:renders="clr-namespace:UberEats.Renders"
              x:Class="UberEats.Views.CuentaDetalleView">
     <ContentPage.ToolbarItems>
@@ -10,6 +11,12 @@
             Text="Guardar"
             Command="{Binding GuardarCommand}"/>
     </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout 
@@ -59,7 +66,7 @@
                     Grid.Row="2" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2" 
-                    Source="{Binding Foto}" 
+                    Source="{Binding Foto, Converter={StaticResource ImageConverter}}" 
                     WidthRequest="220"/>
 
                 <!--BOTON CARGAR FOTO-->
@@ -69,7 +76,8 @@
                     Text="Subir foto" 
                     WidthRequest="100" 
                     HeightRequest="40" 
-                    VerticalOptions="Start"/>
+                    VerticalOptions="Start"
+                    Command="{Binding SeleccionarFotografiaCommand}"/>
 
                 <!--BOTON TOMAR FOTO-->
                 <Button 
@@ -78,7 +86,8 @@
                     Text="Tomar foto" 
                     WidthRequest="100" 
                     HeightRequest="40" 
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding TomarFotografiaCommand}"/>
 
                 <Label 
                     Grid.Row="5" 

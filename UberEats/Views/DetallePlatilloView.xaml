@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:UberEats.ImageConverter"
              x:Class="UberEats.Views.DetallePlatilloView">
     <ContentPage.ToolbarItems>
         <!--BOTON ELIMINAR-->
@@ -13,6 +14,12 @@
             Command="{Binding GuardarCommand}"/>
     </ContentPage.ToolbarItems>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout 
             HorizontalOptions="Center" 
@@ -50,11 +57,11 @@
                     Text="{Binding Nombre}"/>
 
                 <Image 
-                    Grid.Row="3" 
+                    Grid.Row="1" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Source="{Binding Foto}" 
-                    WidthRequest="220"/>
+                    Source="{Binding Foto, Converter={StaticResource ImageConverter}}"
+                    WidthRequest="500"/>
                 
                 <Button
                     Grid.Row="2" 

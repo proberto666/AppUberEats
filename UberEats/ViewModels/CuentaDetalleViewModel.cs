@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Media;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,12 @@ namespace UberEats.ViewModels
 
         Command _ObtenerCoordCommand;
         public Command ObtenerCoordCommand => _ObtenerCoordCommand ?? (_ObtenerCoordCommand = new Command(CoordActionAsync));
+
+        Command _TomarFotografiaCommand;
+        public Command TomarFotografiaCommand => _TomarFotografiaCommand ?? (_TomarFotografiaCommand = new Command(TomarFotografiaActionAsync));
+
+        Command _SeleccionarFotografiaCommand;
+        public Command SeleccionarFotografiaCommand => _SeleccionarFotografiaCommand ?? (_SeleccionarFotografiaCommand = new Command(SeleccionarFotografiaAction));
 
         //=====================
 
@@ -65,7 +72,13 @@ namespace UberEats.ViewModels
             set => SetProperty(ref _IdRestaurante, value);
         }
 
-        
+        string imgBase64;
+        public string ImageBase64
+        {
+            get => imgBase64;
+            set => SetProperty(ref imgBase64, value);
+        }
+
         //--------------------------------
 
         //____FUNCIONES AQUÍ_____
@@ -112,7 +125,64 @@ namespace UberEats.ViewModels
 
                 throw;
             }
+        }
 
+        private async void TomarFotografiaActionAsync()
+        {
+            try
+            {
+                await CrossMedia.Current.Initialize();
+
+                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await App.Current.MainPage.DisplayAlert("No Cámara", "Cámara no disponible.", "Ok");
+                    return;
+                }
+
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    Directory = "PlatillosFotos",
+                    Name = "PlatillosPicture.jpg"
+                });
+
+                if (file == null)
+                    return;
+
+                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("AppTasks", $"Se generó un error ({ex.Message})", "OK");
+            }
+        }
+
+        private async void SeleccionarFotografiaAction()
+        {
+            try
+            {
+                await CrossMedia.Current.Initialize();
+
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await App.Current.MainPage.DisplayAlert("UberEats", "No podemos acceder a tu galeria.", "Ok");
+                    return;
+                }
+
+                var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+
+                if (file == null)
+                    return;
+
+                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("AppTasks", $"Se generó un error ({ex.Message})", "OK");
+            }
         }
 
         private async void CoordActionAsync(object obj)

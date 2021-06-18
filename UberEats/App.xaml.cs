@@ -16,7 +16,6 @@ namespace UberEats
         {
             InitializeComponent();
             MainPage = new NavigationPage(new Views.InicioSesionView());
-           
         }
 
         protected override void OnStart()

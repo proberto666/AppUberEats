@@ -11,10 +11,6 @@
         <ToolbarItem 
             Text="Agregar"
             Command="{Binding AgregarCommand}"/>
-        <!--BOTON EDITAR-->
-        <ToolbarItem 
-            Text="Editar"
-            Command="{Binding EditarCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
@@ -74,8 +70,8 @@
                         <Image 
                             Grid.Row="1" 
                             Grid.Column="0" 
-                            WidthRequest="100"
-                            Source="{Binding FotoRestaurante}"/>
+                            Source="{Binding FotoRestaurante, Converter={StaticResource ImageConverter}}"
+                            WidthRequest="300"/>
 
                         <Label 
                             Grid.Row="1"
