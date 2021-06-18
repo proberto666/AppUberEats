@@ -43,7 +43,7 @@
                     VerticalOptions="End" 
                     HorizontalOptions="End" 
                     FontFamily="uberMedium"/>
-                
+
                 <!--INPUT NOMBRE RESTAURANTE-->
                 <Entry 
                     Grid.Row="1" 
@@ -51,16 +51,17 @@
                     Grid.ColumnSpan="2" 
                     WidthRequest="218" 
                     VerticalOptions="Start" 
-                    Placeholder="Nombre Restaurante"/>
+                    Placeholder="Nombre Restaurante"
+                    Text="{Binding Nombre}"/>
 
                 <!--PREVIEW IMAGEN-->
                 <Image 
                     Grid.Row="2" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2" 
-                    Source="http://lorempixel.com/170/170/" 
+                    Source="{Binding Foto}" 
                     WidthRequest="220"/>
-                
+
                 <!--BOTON CARGAR FOTO-->
                 <Button 
                     Grid.Row="3" 
@@ -69,7 +70,7 @@
                     WidthRequest="100" 
                     HeightRequest="40" 
                     VerticalOptions="Start"/>
-                
+
                 <!--BOTON TOMAR FOTO-->
                 <Button 
                     Grid.Row="3" 
@@ -87,7 +88,7 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Start" 
                     FontFamily="uberMedium"/>
-                
+
                 <!--INPUT DIRECCIÓN-->
                 <Entry 
                     Grid.Row="5" 
@@ -95,8 +96,9 @@
                     Grid.ColumnSpan="5"
                     WidthRequest="370" 
                     HorizontalOptions="End" 
-                    Placeholder="Dirección Restaurante"/>
-                
+                    Placeholder="Dirección Restaurante"
+                    Text="{Binding Direccion}"/>
+
                 <Label 
                     Grid.Row="0" 
                     Grid.Column="3" 
@@ -104,7 +106,7 @@
                     VerticalOptions="Center" 
                     HorizontalOptions="Start" 
                     FontFamily="uberMedium"/>
-                
+
                 <!--INPUT LATITUD-->
                 <Entry
                     Grid.Row="0" 
@@ -112,8 +114,9 @@
                     Grid.ColumnSpan="2"
                     WidthRequest="180" 
                     HorizontalOptions="End"
-                    Placeholder="Latitud ubicación"/>
-  
+                    Placeholder="Latitud ubicación"
+                    Text="{Binding Latitud}"/>
+
                 <Label 
                     Grid.Row="1"
                     Grid.Column="3"
@@ -121,7 +124,7 @@
                     VerticalOptions="Center"
                     HorizontalOptions="Start"
                     FontFamily="uberMedium"/>
-                
+
                 <!--INPUT LONGITUD-->
                 <Entry 
                     Grid.Row="1" 
@@ -129,7 +132,8 @@
                     Grid.ColumnSpan="2"
                     WidthRequest="180"
                     HorizontalOptions="End"
-                    Placeholder="Longitud ubicación"/>
+                    Placeholder="Longitud ubicación"
+                    Text="{Binding Longitud}"/>
 
                 <!--MAPA-->
                 <maps:Map 

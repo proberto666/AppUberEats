@@ -60,7 +60,7 @@
                             Grid.Row="0" 
                             Grid.Column="0" 
                             Grid.ColumnSpan="2" 
-                            Text="Restaurante" 
+                            Text="{Binding NombreRestaurante}" 
                             FontFamily="uberBold" 
                             FontSize="Title"/>
 
@@ -68,13 +68,13 @@
                             Grid.Row="1" 
                             Grid.Column="0" 
                             WidthRequest="100"
-                            Source="http://lorempixel.com/100/100/"/>
+                            Source="{Binding FotoRestaurante}"/>
 
                         <Label 
                             Grid.Row="1"
                             Grid.Column="1" 
                             VerticalTextAlignment="Center"
-                            Text="av gto 111 col. aijijde adaidoj" 
+                            Text="{Binding Direccion}" 
                             FontFamily="uberMedium" 
                             FontSize="Subtitle"/>
 
@@ -149,7 +149,8 @@
                     <ScrollView>
                         <CollectionView 
                             x:Name="ListaPlatillos" 
-                            SelectionMode="Single" >
+                            SelectionMode="Single"
+                            ItemsSource="{Binding ListaPlatillos}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout 
@@ -167,16 +168,16 @@
                                             </Grid.RowDefinitions>
                                             <Image 
                                                 Grid.Row="0" 
-                                                Source="http://lorempixel.com/180/180/"
+                                                Source="{Binding Foto}"
                                                 WidthRequest="180"/>
                                             <Label 
                                                 Grid.Row="1" 
-                                                Text="Nombre" 
+                                                Text="{Binding Nombre}" 
                                                 FontFamily="uberBold" 
                                                 FontSize="Small"/>
                                             <Label 
                                                 Grid.Row="2" 
-                                                Text="$0.00" 
+                                                Text="{Binding Precio, StringFormat='${0}'}" 
                                                 FontFamily="uberMedium" 
                                                 FontSize="Small" 
                                                 Opacity="0.5"/>

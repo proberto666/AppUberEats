@@ -44,13 +44,14 @@
                     HorizontalOptions="End" 
                     Placeholder="Nombre Platillo"
                     WidthRequest="155"
-                    FontFamily="uberMedium"/>
+                    FontFamily="uberMedium"
+                    Text="{Binding Nombre}"/>
 
                 <Image 
                     Grid.Row="1" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Source="http://lorempixel.com/220/220/" 
+                    Source="{Binding Foto}" 
                     WidthRequest="220"/>
                 <Button
                     Grid.Row="2" 
@@ -78,7 +79,8 @@
                     HorizontalOptions="End"
                     Placeholder="0.0" 
                     WidthRequest="170"
-                    FontFamily="uberMedium"/>
+                    FontFamily="uberMedium"
+                    Text="{Binding Precio}"/>
 
             </Grid>
         </StackLayout>

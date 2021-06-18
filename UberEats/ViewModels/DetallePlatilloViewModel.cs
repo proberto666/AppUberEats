@@ -68,6 +68,11 @@ namespace UberEats.ViewModels
             ApiResponse response;
             try
             {
+                if(_Foto == null)
+                {
+                    _Foto = "";
+                }
+
                 PlatilloModel platillo = new PlatilloModel
                 {
                     Nombre = _Nombre,
@@ -76,7 +81,7 @@ namespace UberEats.ViewModels
                     IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante
                 };
 
-                response = await new ApiService().PostDataAsync("platillos", platillo);
+                response = await new ApiService().PostDataAsync("platillo", platillo);
                 if (response == null || !response.IsSucces)
                 {
                     await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al procesar la orden {response.Message}", "Ok");

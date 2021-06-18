@@ -37,6 +37,27 @@ namespace UberEats.ViewModels
             set => SetProperty(ref _ListaPlatillos, value);
         }
 
+        string _FotoRestaurante;
+        public string FotoRestaurante
+        {
+            get => _FotoRestaurante;
+            set => SetProperty(ref _FotoRestaurante, value);
+        }
+
+        string _NombreRestaurante;
+        public string NombreRestaurante
+        {
+            get => _NombreRestaurante;
+            set => SetProperty(ref _NombreRestaurante, value);
+        }
+
+        string _Direccion;
+        public string Direccion
+        {
+            get => _Direccion;
+            set => SetProperty(ref _Direccion, value);
+        }
+
         //--------------------------------
 
         //---------FUNCIONES AQUÍ---------
@@ -44,6 +65,9 @@ namespace UberEats.ViewModels
         public ListaPlatillosViewModel()
         {
             cargarPlatillos();
+            Direccion = UberEats.App.RestauranteLoged.Direccion;
+            NombreRestaurante = UberEats.App.RestauranteLoged.Nombre;
+            FotoRestaurante = UberEats.App.RestauranteLoged.Foto;
         }
 
         private async void cargarPlatillos()

@@ -88,10 +88,6 @@ namespace UberEats.ViewModels
 
                     UberEats.App.RestauranteLoged = (RestauranteModel)restaurante.Response;
 
-                    ApiResponse platillos = await new ApiService().GetDataListByIntAsync<PlatilloModel>("platillo", UberEats.App.NegocioLoged.idRestaurante);
-
-                    UberEats.App.ListaPlatilos = (List<PlatilloModel>)platillos.Response;
-
                     await Application.Current.MainPage.Navigation.PushAsync(new ListaPlatillosView());
                 }
                 else
