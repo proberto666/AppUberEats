@@ -50,8 +50,9 @@
                 <RefreshView>
                     <ScrollView>
                         <CollectionView
-                    x:Name="ListaOrdenes"
-                    SelectionMode="Single">
+                            x:Name="ListaOrdenes"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding ListaOrdenes}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -70,21 +71,21 @@
                                             Grid.Column="0" 
                                             HorizontalOptions="Center" 
                                             VerticalOptions="Center"
-                                            Text="dd/mm/yyyy"
+                                            Text="{Binding Fecha}"
                                             FontFamily="uberMedium"/>
                                         <Label
                                             Grid.Row="0" 
                                             Grid.Column="2" 
                                             HorizontalOptions="Center" 
                                             VerticalOptions="Center"
-                                            Text="Cliente"
+                                            Text="{Binding Cliente}"
                                             FontFamily="uberMedium"/>
                                         <Label
                                             Grid.Row="0"
                                             Grid.Column="4"
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center"
-                                            Text="$0.00"
+                                            Text="{Binding Total, StringFormat='${0}'}"
                                             FontFamily="uberMedium"/>
                                     </Grid>
                                 </DataTemplate>

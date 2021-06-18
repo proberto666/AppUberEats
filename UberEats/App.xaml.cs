@@ -11,7 +11,6 @@ namespace UberEats
         public static RestauranteModel RestauranteLoged;
         public static NegocioModel NegocioLoged;
         public static List<PlatilloModel> ListaPlatilos = new List<PlatilloModel>();
-        public static List<OrdenModel> ListaOrdenes = new List<OrdenModel>();
 
         public App()
         {

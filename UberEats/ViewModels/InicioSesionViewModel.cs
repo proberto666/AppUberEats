@@ -92,10 +92,6 @@ namespace UberEats.ViewModels
 
                     UberEats.App.ListaPlatilos = (List<PlatilloModel>)platillos.Response;
 
-                    ApiResponse ordenes = await new ApiService().GetDataListByIntAsync<OrdenModel>("ordenes", UberEats.App.NegocioLoged.idRestaurante);
-
-                    UberEats.App.ListaOrdenes = (List<OrdenModel>)ordenes.Response;
-
                     await Application.Current.MainPage.Navigation.PushAsync(new ListaPlatillosView());
                 }
                 else
