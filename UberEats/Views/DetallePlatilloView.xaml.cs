@@ -15,7 +15,7 @@ namespace UberEats.Views
         public PlatilloDetalleView()
         {
             InitializeComponent();
-            BindingContext = new PlatilloDetalleViewModel();
+            BindingContext = new DetallePlatilloViewModel();
         }
     }
 }

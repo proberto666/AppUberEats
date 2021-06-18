@@ -16,6 +16,9 @@ namespace UberEats.ViewModels
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
+
+
+
         //--------------------------------
 
         //____FUNCIONES AQUÍ_____
