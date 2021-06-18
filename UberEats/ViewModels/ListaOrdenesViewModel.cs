@@ -11,13 +11,14 @@ namespace UberEats.ViewModels
     public class ListaOrdenesViewModel : BaseViewModel
     {
         //====COMANDOS AQUÍ====
-        Command _AgregarCommand;
-        public Command AgregarCommand => _AgregarCommand ?? (_AgregarCommand = new Command(AgregarAction));
 
+        Command _AgregarCommand; //Redirecciona a DetallerOrden
+        public Command AgregarCommand => _AgregarCommand ?? (_AgregarCommand = new Command(AgregarAction));
 
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
+
         List<OrdenModel> _ListaOrdenes;
         public List<OrdenModel> ListaOrdenes
         {
@@ -30,10 +31,10 @@ namespace UberEats.ViewModels
         //____FUNCIONES AQUÍ_____
         public ListaOrdenesViewModel() 
         {
-            loadOrdenes();
+            cargarOrdenes();
         }
 
-        private async void loadOrdenes()
+        private async void cargarOrdenes()
         {
             ApiResponse ordenes = await new ApiService().GetDataListByIntAsync<OrdenModel>("ordenes", UberEats.App.NegocioLoged.idRestaurante);
             if(ordenes == null || !ordenes.IsSucces)
@@ -47,7 +48,7 @@ namespace UberEats.ViewModels
 
         public void recargarOrdenes()
         {
-            loadOrdenes();
+            cargarOrdenes();
         }
 
         private void AgregarAction(object obj)

@@ -12,10 +12,10 @@ namespace UberEats.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PlatilloDetalleView : ContentPage
     {
-        public PlatilloDetalleView()
+        public PlatilloDetalleView(ListaPlatillosViewModel lista)
         {
             InitializeComponent();
-            BindingContext = new DetallePlatilloViewModel();
+            BindingContext = new DetallePlatilloViewModel(lista);
         }
     }
 }

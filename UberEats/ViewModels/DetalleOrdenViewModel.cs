@@ -14,7 +14,6 @@ namespace UberEats.ViewModels
         Command _AgregarCommand;
         public Command AgregarCommand => _AgregarCommand ?? (_AgregarCommand = new Command(AgregarAction));
 
-
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----

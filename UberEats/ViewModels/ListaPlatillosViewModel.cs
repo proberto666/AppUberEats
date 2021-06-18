@@ -4,6 +4,7 @@ using System.Text;
 using UberEats.Views;
 using UberEats.Models;
 using Xamarin.Forms;
+using UberEats.Services;
 
 namespace UberEats.ViewModels
 {
@@ -11,10 +12,10 @@ namespace UberEats.ViewModels
     {
         //====COMANDOS AQUÍ====
         Command _AgregarCommand; //Agregar platillo en PlatilloDetalleView
-        public Command AgregarCommand => _AgregarCommand ?? (_AgregarCommand = new Command(AgregarnAction));
+        public Command AgregarCommand => _AgregarCommand ?? (_AgregarCommand = new Command(AgregarAction));
 
         Command _EditarCommand; //Editar platillo en PlatilloDetalleView
-        public Command EditarCommand => _EditarCommand ?? (_EditarCommand = new Command(EditarnAction));
+        public Command EditarCommand => _EditarCommand ?? (_EditarCommand = new Command(EditarAction));
 
         Command _VerOrdenesCommand; //Abrir ListaOrdenesView
         public Command VerOrdenesCommand => _VerOrdenesCommand ?? (_VerOrdenesCommand = new Command(VerOrdenesAction));
@@ -24,29 +25,52 @@ namespace UberEats.ViewModels
 
         Command _CerrarSesionCommand;
         public Command CerrarSesionCommand => _CerrarSesionCommand ?? (_CerrarSesionCommand = new Command(CerrarSesionAction));
-       
+
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
 
-
+        List<PlatilloModel> _ListaPlatillos;
+        public List<PlatilloModel> ListaPlatillos
+        {
+            get => _ListaPlatillos;
+            set => SetProperty(ref _ListaPlatillos, value);
+        }
 
         //--------------------------------
 
-        //____FUNCIONES AQUÍ_____
+        //---------FUNCIONES AQUÍ---------
+
         public ListaPlatillosViewModel()
         {
-           
+            cargarPlatillos();
         }
 
-        private void AgregarnAction(object obj)
+        private async void cargarPlatillos()
         {
-            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView());
+            ApiResponse platillos = await new ApiService().GetDataListByIntAsync<PlatilloModel>("platillo", UberEats.App.NegocioLoged.idRestaurante);
+            if (platillos == null || !platillos.IsSucces)
+            {
+                await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al cargar las ordenes {platillos.Message}", "OK");
+                return;
+            }
+
+            ListaPlatillos = (List<PlatilloModel>)platillos.Response;
         }
 
-        private void EditarnAction(object obj)
+        public void recargarPlatillos()
         {
-            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView());
+            cargarPlatillos();
+        }
+
+        private void AgregarAction(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView(this));
+        }
+
+        private void EditarAction(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new PlatilloDetalleView(this));
         }
 
         private void VerOrdenesAction(object obj)

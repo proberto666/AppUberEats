@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UberEats.Models;
+using UberEats.Services;
 using Xamarin.Forms;
 
 namespace UberEats.ViewModels
@@ -9,30 +11,86 @@ namespace UberEats.ViewModels
     public class DetallePlatilloViewModel : BaseViewModel
     {
         //====COMANDOS AQUÍ====
+
         Command _GuardarCommand;
         public Command GuardarCommand => _GuardarCommand ?? (_GuardarCommand = new Command(GuardarAction));
         
         Command _EliminarCommand;
         public Command EliminarCommand => _EliminarCommand ?? (_EliminarCommand = new Command(EliminarAction));
 
-        Command cancelarCommand;
-        public Command CancelarCommand => cancelarCommand ?? (cancelarCommand = new Command(CancelarAction));
+        Command _CancelarCommand;
+        public Command CancelarCommand => _CancelarCommand ?? (_CancelarCommand = new Command(CancelarAction));
 
-        Command tomarFotografiaCommand;
-        public Command TakePictureCommand => tomarFotografiaCommand ?? (tomarFotografiaCommand = new Command(TomarFotografiaActionAsync));
+        Command _TomarFotografiaCommand;
+        public Command TomarFotografiaCommand => _TomarFotografiaCommand ?? (_TomarFotografiaCommand = new Command(TomarFotografiaActionAsync));
 
-        Command seleccionarFotografiaCommand;
-        public Command SelectPictureCommand => seleccionarFotografiaCommand ?? (seleccionarFotografiaCommand = new Command(SeleccionarFotografiaAction));
+        Command _SeleccionarFotografiaCommand;
+        public Command SeleccionarFotografiaCommand => _SeleccionarFotografiaCommand ?? (_SeleccionarFotografiaCommand = new Command(SeleccionarFotografiaAction));
 
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
+
+        ListaPlatillosViewModel ListaPlatillos;
+
+        string _Nombre;
+        public string Nombre
+        {
+            get => _Nombre;
+            set => SetProperty(ref _Nombre, value);
+        }
+
+        double _Precio;
+        public double Precio
+        {
+            get => _Precio;
+            set => SetProperty(ref _Precio, value);
+        }
+
+        string _Foto;
+        public string Foto
+        {
+            get => _Foto;
+            set => SetProperty(ref _Foto, value);
+        }
+
         //--------------------------------
 
-        //____FUNCIONES AQUÍ_____
-        private void GuardarAction(object obj)
+        //---------FUNCIONES AQUÍ---------
+
+        public DetallePlatilloViewModel(ListaPlatillosViewModel lista)
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            ListaPlatillos = lista;
+        }
+
+        private async void GuardarAction(object obj)
+        {
+            ApiResponse response;
+            try
+            {
+                PlatilloModel platillo = new PlatilloModel
+                {
+                    Nombre = _Nombre,
+                    Precio = _Precio,
+                    Foto = _Foto,
+                    IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante
+                };
+
+                response = await new ApiService().PostDataAsync("platillos", platillo);
+                if (response == null || !response.IsSucces)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al procesar la orden {response.Message}", "Ok");
+                    return;
+                }
+
+                ListaPlatillos.recargarPlatillos();
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void EliminarAction(object obj)
@@ -74,5 +132,35 @@ namespace UberEats.ViewModels
                 await App.Current.MainPage.DisplayAlert("AppTasks", $"Se generó un error ({ex.Message})", "OK");
             }
         }
+
+        private async void SeleccionarFotografiaAction()
+        {
+            try
+            {
+                await CrossMedia.Current.Initialize();
+
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await App.Current.MainPage.DisplayAlert("UberEats", "No podemos acceder a tu galeria.", "Ok");
+                    return;
+                }
+
+                var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium
+                });
+
+                if (file == null)
+                    return;
+
+                //GasFoto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("AppTasks", $"Se generó un error ({ex.Message})", "OK");
+            }
+        }
+
+        //--------------------------------
     }
 }
