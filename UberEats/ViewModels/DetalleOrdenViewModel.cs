@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UberEats.Models;
+using UberEats.Services;
 using UberEats.Views;
 using Xamarin.Forms;
 
@@ -16,15 +18,67 @@ namespace UberEats.ViewModels
         //=====================
 
         //-----VARIABLES Y CONSTANTES-----
+
+        ListaOrdenesViewModel ListaOrdenes;
+
+        string _Fecha;
+        public string Fecha
+        {
+            get => _Fecha;
+            set => SetProperty(ref _Fecha, value);
+        }
+
+        string _Cliente;
+        public string Cliente
+        {
+            get => _Cliente;
+            set => SetProperty(ref _Cliente, value);
+        }
+
+        double _Total;
+        public double Total
+        {
+            get => _Total;
+            set => SetProperty(ref _Total, value);
+        }
         //--------------------------------
 
         //____FUNCIONES AQUÍ_____
 
-        public DetalleOrdenViewModel() { }
-
-        private void AgregarAction(object obj)
+        public DetalleOrdenViewModel(ListaOrdenesViewModel lista) 
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            ListaOrdenes = lista;
+        }
+
+        private async void AgregarAction(object obj)
+        {
+            ApiResponse response;
+            try
+            {
+                OrdenModel orden = new OrdenModel
+                {
+                    Fecha = _Fecha,
+                    Cliente = _Cliente,
+                    Total = _Total,
+                    IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante
+                };
+
+                response = await new ApiService().PostDataAsync("ordenes", orden);
+                if (response == null || !response.IsSucces)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Eats", $"Error al procesar la orden {response.Message}", "OK");
+                    return;
+                }
+
+                ListaOrdenes.recargarOrdenes();
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
         //_______________________
     }

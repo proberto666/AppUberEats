@@ -48,19 +48,22 @@
                     Grid.Column="1"
                     Placeholder="Fecha orden"
                     WidthRequest="100"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Text="{Binding Fecha}"/>
                 <Entry
                     Grid.Row="1"
                     Grid.Column="1"
                     Placeholder="Nombre cliente"
                     WidthRequest="100"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Text="{Binding Cliente}"/>
                 <Entry
                     Grid.Row="2"
                     Grid.Column="1"
                     Placeholder="Total $"
                     WidthRequest="100"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Text="{Binding Total}"/>
 
             </Grid>
         </StackLayout>

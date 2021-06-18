@@ -12,10 +12,10 @@ namespace UberEats.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetalleOrdenView : ContentPage
     {
-        public DetalleOrdenView()
+        public DetalleOrdenView(ListaOrdenesViewModel lista)
         {
             InitializeComponent();
-            BindingContext = new DetalleOrdenViewModel();
+            BindingContext = new DetalleOrdenViewModel(lista);
         }
     }
 }
