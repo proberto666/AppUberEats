@@ -108,6 +108,15 @@ namespace UberEats.ViewModels
             ListaPlatillos = (List<PlatilloModel>)platillos.Response;
         }
 
+        public void cargarRestaurante()
+        {
+            NombreRestaurante = UberEats.App.RestauranteLoged.Nombre;
+            FotoRestaurante = UberEats.App.RestauranteLoged.Foto;
+            Direccion = UberEats.App.RestauranteLoged.Direccion;
+            Latitud = UberEats.App.RestauranteLoged.Latitud;
+            Longitud = UberEats.App.RestauranteLoged.Longitud;
+        }
+
         public void recargarPlatillos()
         {
             cargarPlatillos();
@@ -130,7 +139,7 @@ namespace UberEats.ViewModels
 
         private void EditarCuentaAction(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new CuentaDetalleView());
+            Application.Current.MainPage.Navigation.PushAsync(new CuentaDetalleView(this));
         }
 
         private void CerrarSesionAction(object obj)

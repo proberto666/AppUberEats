@@ -14,10 +14,10 @@ namespace UberEats.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CuentaDetalleView : ContentPage
     {
-        public CuentaDetalleView()
+        public CuentaDetalleView(ListaPlatillosViewModel lista)
         {
             InitializeComponent();
-            BindingContext = new CuentaDetalleViewModel();
+            BindingContext = new CuentaDetalleViewModel(lista);
             RestauranteModel RestauranteSeleccionado = UberEats.App.RestauranteLoged;
             //mapaRestaurante.restaurante = RestauranteSeleccionado;
 

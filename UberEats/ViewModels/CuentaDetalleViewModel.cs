@@ -13,6 +13,22 @@ namespace UberEats.ViewModels
 {
     public class CuentaDetalleViewModel : BaseViewModel
     {
+        //====INICIALIZACIÓN====
+
+        public CuentaDetalleViewModel(ListaPlatillosViewModel lista)
+        {
+            ListaPlatillos = lista;
+
+            IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante;
+            Nombre = UberEats.App.RestauranteLoged.Nombre;
+            Direccion = UberEats.App.RestauranteLoged.Direccion;
+            Latitud = UberEats.App.RestauranteLoged.Latitud;
+            Longitud = UberEats.App.RestauranteLoged.Longitud;
+            Foto = UberEats.App.RestauranteLoged.Foto;
+        }
+
+        //=====================
+
         //====COMANDOS AQUÍ====
         Command _GuardarCommand;
         public Command GuardarCommand => _GuardarCommand ?? (_GuardarCommand = new Command(GuardarActionAsync));
@@ -29,6 +45,8 @@ namespace UberEats.ViewModels
         //=====================
 
         //-----VARIABLES Y CONSTANTES----- 
+
+        ListaPlatillosViewModel ListaPlatillos;
 
         string _Nombre;
         public string Nombre
@@ -83,17 +101,6 @@ namespace UberEats.ViewModels
 
         //____FUNCIONES AQUÍ_____
 
-        public CuentaDetalleViewModel ()
-        {
-
-            IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante;
-            Nombre = UberEats.App.RestauranteLoged.Nombre;
-            Direccion = UberEats.App.RestauranteLoged.Direccion;
-            Latitud = UberEats.App.RestauranteLoged.Latitud;
-            Longitud = UberEats.App.RestauranteLoged.Longitud;
-            Foto = UberEats.App.RestauranteLoged.Foto;
-        }
-
         private async void GuardarActionAsync(object obj)
         {
             ApiResponse response;
@@ -118,11 +125,12 @@ namespace UberEats.ViewModels
 
                 ListaPlatillosView.GetInstance().recargarMapa();
 
+                ListaPlatillos.cargarRestaurante();
+
                 await Application.Current.MainPage.Navigation.PopAsync();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

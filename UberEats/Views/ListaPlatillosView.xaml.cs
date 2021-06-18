@@ -23,7 +23,6 @@ namespace UberEats.Views
             BindingContext = new ListaPlatillosViewModel();
 
             recargarMapa();
-
         }
 
         public static ListaPlatillosView GetInstance()
