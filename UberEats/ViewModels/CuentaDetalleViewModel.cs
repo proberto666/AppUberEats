@@ -156,7 +156,7 @@ namespace UberEats.ViewModels
                 if (file == null)
                     return;
 
-                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+                Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
 
             }
             catch (Exception ex)
@@ -185,7 +185,7 @@ namespace UberEats.ViewModels
                 if (file == null)
                     return;
 
-                _Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
+                Foto = imgBase64 = await new ImageService().ConvertImageFilePathToBase64(file.Path);
             }
             catch (Exception ex)
             {
