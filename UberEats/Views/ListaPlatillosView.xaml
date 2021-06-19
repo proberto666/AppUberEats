@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
@@ -148,50 +148,70 @@
                 Grid.Row="0" 
                 Grid.Column="1" 
                 Grid.RowSpan="1" 
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                Padding="10">
                 <RefreshView>
-                    <ScrollView>
-                        <CollectionView 
+                    <CollectionView 
                             x:Name="ListaPlatillos" 
                             ItemsSource="{Binding ListaPlatillos}"
                             SelectionMode="Single"
-                            SelectedItem="{Binding PlatilloSelected}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout 
-                                        WidthRequest="200" 
-                                        HeightRequest="280" 
-                                        BackgroundColor="#3fc060" 
-                                        Padding="10" 
-                                        Margin="10">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="180"/>
-                                                <RowDefinition Height="20"/>
-                                                <RowDefinition Height="20"/>
-                                                <RowDefinition Height="20"/>
-                                            </Grid.RowDefinitions>
-                                            <Image 
+                            SelectedItem="{Binding PlatilloSelected}"
+                            ItemSizingStrategy="MeasureAllItems">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                Orientation="Horizontal"
+                                Span="2"/>
+                            
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout 
+                                        WidthRequest="220"
+                                        VerticalOptions="FillAndExpand"
+                                        Padding="10">
+                                    <Grid
+                                        VerticalOptions="FillAndExpand"
+                                        Padding="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="200"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image 
                                                 Grid.Row="0" 
+                                                Grid.Column="0"
+                                                Opacity="1"
+                                                Aspect="AspectFill"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                HeightRequest="170"
                                                 Source="{Binding Foto, Converter={StaticResource ImageConverter}}"
-                                                WidthRequest="180"/>
+                                                WidthRequest="170"/>
+                                        <StackLayout
+                                            Grid.Row="1" 
+                                            Grid.Column="0">
                                             <Label 
-                                                Grid.Row="1" 
                                                 Text="{Binding Nombre}" 
                                                 FontFamily="uberBold" 
                                                 FontSize="Small"/>
+                                        </StackLayout>
+                                        <StackLayout
+                                            Grid.Row="2" 
+                                            Grid.Column="0">
                                             <Label 
-                                                Grid.Row="2" 
                                                 Text="{Binding Precio, StringFormat='${0}'}" 
                                                 FontFamily="uberMedium" 
                                                 FontSize="Small" 
                                                 Opacity="0.5"/>
-                                        </Grid>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </ScrollView>
+                                        </StackLayout>
+                                    </Grid>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </RefreshView>
             </FlexLayout>
             
