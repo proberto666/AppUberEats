@@ -15,7 +15,5 @@ namespace UberEats.Models
         public string Foto { get; set; }
 
         public int IdRestaurante { get; set; }
-
-        public string NombreRestaurante { get; set; }
     }
 }

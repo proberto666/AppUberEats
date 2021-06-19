@@ -18,8 +18,6 @@ namespace WebApiUberEats.Models
 
         public int IdRestaurante { get; set; }
 
-        public string NombreRestaurante { get; set; }
-
         public List<PlatilloModel> GetId(string ConnectionString, int id)
         {
             try
@@ -29,7 +27,7 @@ namespace WebApiUberEats.Models
                 using (SqlConnection conn = new SqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    string tsql = "Select p.IdPlatillo, p.NombrePlatillo, p.Foto, p.precio, r.IdRestaurante, r.Nombre from Platillo p INNER JOIN Restaurante r ON r.IdRestaurante = p.IdRestaurante WHERE p.IdRestaurante = @Id";
+                    string tsql = "Select p.IdPlatillo, p.NombrePlatillo, p.Foto, p.precio, p.IdRestaurante from Platillo p WHERE IdRestaurante = @Id";
                     using (SqlCommand cmd = new SqlCommand(tsql, conn))
                     {
                         cmd.Parameters.AddWithValue("@Id", id);
@@ -41,7 +39,6 @@ namespace WebApiUberEats.Models
                                 ListaPlatillos.Add(new PlatilloModel
                                 {
                                     IdRestaurante = (int)reader["IdRestaurante"],
-                                    NombreRestaurante = reader["Nombre"].ToString(),
                                     Nombre = reader["NombrePlatillo"].ToString(),
                                     Precio = (double)reader["Precio"],
                                     IdPlatillo = (int)reader["IdPlatillo"],
@@ -124,7 +121,7 @@ namespace WebApiUberEats.Models
                         cmd.Parameters.AddWithValue("@Nombre", this.Nombre);
                         cmd.Parameters.AddWithValue("@Foto", this.Foto);
                         cmd.Parameters.AddWithValue("@Precio", this.Precio);
-                        cmd.Parameters.AddWithValue("@IdPlatillo", this.IdPlatillo);
+                        cmd.Parameters.AddWithValue("@Id", this.IdPlatillo);
                         cmd.ExecuteNonQuery();
                         return new ResponseModel
                         {
