@@ -118,7 +118,7 @@ namespace UberEats.ViewModels
                     Longitud = _Longitud,
                     Foto = _Foto
                 };
-                if (aux.Direccion == null || aux.Nombre == null || aux.Foto == null)
+                if (aux.Direccion == null || aux.Nombre == null || aux.Foto == null || aux.Direccion == "" || aux.Nombre == "")
                 {
                     await Application.Current.MainPage.DisplayAlert("Uber Eats", "No se aceptan campos vacios, por favor llena todos los campos", "OK");
                     return;
