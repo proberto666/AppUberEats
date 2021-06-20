@@ -76,7 +76,7 @@ namespace UberEats.ViewModels
                 
             }
 
-            if (response.IsSucces || response != null)
+            if (response.IsSucces && response != null)
             {
                 NegocioModel aux = (NegocioModel)response.Response;
                 if (aux.contrasena == UberEats.App.NegocioLoged.contrasena)
