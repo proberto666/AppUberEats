@@ -14,10 +14,22 @@ namespace UberEats.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CuentaDetalleView : ContentPage
     {
+        private static CuentaDetalleView instance;
         public CuentaDetalleView(ListaPlatillosViewModel lista)
         {
+            instance = this;
             InitializeComponent();
             BindingContext = new CuentaDetalleViewModel(lista);
+            recargarMapa();
+        }
+
+        public static CuentaDetalleView GetInstance()
+        {
+            return instance;
+        }
+
+        public void recargarMapa()
+        {
             RestauranteModel RestauranteSeleccionado = UberEats.App.RestauranteLoged;
             //mapaRestaurante.restaurante = RestauranteSeleccionado;
 
@@ -31,6 +43,11 @@ namespace UberEats.Views
                     Distance.FromMiles(.5)
                 )
             );
+
+            if (mapaRestaurante.Pins.Count == 1)
+            {
+                mapaRestaurante.Pins.Clear();
+            }
 
             //agregar pin
             mapaRestaurante.Pins.Add(

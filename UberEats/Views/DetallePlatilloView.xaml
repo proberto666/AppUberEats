@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:UberEats.ImageConverter"
+             xmlns:triggers="clr-namespace:UberEats.Triggers"
              x:Class="UberEats.Views.DetallePlatilloView">
     <ContentPage.ToolbarItems>
         <!--BOTON ELIMINAR-->
@@ -82,7 +83,7 @@
                     HorizontalTextAlignment="Start" 
                     Text="Precio: "
                     FontFamily="uberMedium"/>
-                
+
                 <Entry 
                     Grid.Row="3"
                     Grid.Column="0"
@@ -92,7 +93,14 @@
                     Placeholder="0.0" 
                     WidthRequest="170"
                     FontFamily="uberMedium"
-                    Text="{Binding Precio}"/>
+                    Keyboard="Numeric"
+                    Text="{Binding Precio}">
+                    <Entry.Triggers>
+                        <EventTrigger Event="TextChanged">
+                            <triggers:PrecioTrigger/>
+                        </EventTrigger>
+                    </Entry.Triggers>
+                </Entry>
 
             </Grid>
         </StackLayout>

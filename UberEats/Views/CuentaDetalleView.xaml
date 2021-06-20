@@ -4,6 +4,7 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:converters="clr-namespace:UberEats.ImageConverter"
              xmlns:renders="clr-namespace:UberEats.Renders"
+             xmlns:triggers="clr-namespace:UberEats.Triggers"
              x:Class="UberEats.Views.CuentaDetalleView">
     <ContentPage.ToolbarItems>
         <!--BOTON GUARDAR-->
@@ -123,8 +124,18 @@
                     Grid.ColumnSpan="2"
                     WidthRequest="180" 
                     HorizontalOptions="End"
+                    ReturnCommand="{Binding ActualizarCoordCommand}"
                     Placeholder="Latitud ubicación"
-                    Text="{Binding Latitud}"/>
+                    Keyboard="Numeric"
+                    Text="{Binding Latitud}">
+                    <Entry.Triggers>
+                        <EventTrigger Event="TextChanged">
+                            <triggers:CoordenadasTrigger/>
+                        </EventTrigger>
+                    </Entry.Triggers>
+                </Entry>
+                    
+                   
 
                 <Label 
                     Grid.Row="1"
@@ -141,10 +152,18 @@
                     Grid.ColumnSpan="2"
                     WidthRequest="180"
                     HorizontalOptions="End"
+                    ReturnCommand="{Binding ActualizarCoordCommand}"
                     Placeholder="Longitud ubicación"
-                    Text="{Binding Longitud}"/>
+                    Keyboard="Numeric"
+                    Text="{Binding Longitud}">
+                    <Entry.Triggers>
+                        <EventTrigger Event="TextChanged">
+                            <triggers:CoordenadasTrigger/>
+                        </EventTrigger>
+                    </Entry.Triggers>
+                </Entry>
 
-                <!--MAPA-->
+                    <!--MAPA-->
                 <maps:Map 
                     x:Name="mapaRestaurante"  
                     Grid.Row="2" 

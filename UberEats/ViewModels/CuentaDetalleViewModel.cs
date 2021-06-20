@@ -42,6 +42,9 @@ namespace UberEats.ViewModels
         Command _SeleccionarFotografiaCommand;
         public Command SeleccionarFotografiaCommand => _SeleccionarFotografiaCommand ?? (_SeleccionarFotografiaCommand = new Command(SeleccionarFotografiaAction));
 
+        Command _ActualizarCoordCommand;
+        public Command ActualizarCoordCommand => _ActualizarCoordCommand ?? (_ActualizarCoordCommand = new Command(ActualizarCoordAction));
+
         //=====================
 
         //-----VARIABLES Y CONSTANTES----- 
@@ -115,6 +118,12 @@ namespace UberEats.ViewModels
                     Longitud = _Longitud,
                     Foto = _Foto
                 };
+                if (aux.Direccion == null || aux.Nombre == null || aux.Foto == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Uber Eats", "No se aceptan campos vacios, por favor llena todos los campos", "OK");
+                    return;
+                }
+
                 response = await new ApiService().PutDataAsync("restaurante", aux);
                 if (response == null || !response.IsSucces)
                 {
@@ -204,7 +213,9 @@ namespace UberEats.ViewModels
                     Latitud = location.Latitude;
                     Longitud = location.Longitude;
                 }
-
+                UberEats.App.RestauranteLoged.Latitud = _Latitud;
+                UberEats.App.RestauranteLoged.Longitud = _Longitud;
+                CuentaDetalleView.GetInstance().recargarMapa();
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -227,6 +238,24 @@ namespace UberEats.ViewModels
                 await App.Current.MainPage.DisplayAlert("Uber Eats", $"Se generó un error al obtener las coordenadas del dispositivo({ex.Message})", "Ok");
             }
         }
+
+        private async void ActualizarCoordAction(object obj)
+        {
+            try
+            {
+                Latitud = _Latitud;
+                Longitud = _Longitud;
+                UberEats.App.RestauranteLoged.Latitud = _Latitud;
+                UberEats.App.RestauranteLoged.Longitud = _Longitud;
+                CuentaDetalleView.GetInstance().recargarMapa();
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                await App.Current.MainPage.DisplayAlert("Uber Eats", $"Se generó un error al octualizar las coordenadas ({ex.Message})", "Ok");
+            }
+        }
+
         //_______________________
     }
 }

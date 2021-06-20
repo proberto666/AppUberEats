@@ -60,27 +60,26 @@ namespace UberEats.ViewModels
                 {
                     Alerta = "Campo Usuario incompleto";
                     Contrasena = null;
+                    return;
                 }
                 if (Contrasena == null)
                 {
                     Alerta = "Campo contrasena incompleto";
                     Usuario = null;
+                    return;
                 }
                 if(Usuario == null && Contrasena == null)
                 {
                     Alerta = "Por favor ingrese sus datos";
+                    return;
                 }
                 
             }
 
-            if (!response.IsSucces || response == null)
-            {
-                Alerta = "Error en usuario o contrasena";
-            }
-            else
+            if (response.IsSucces || response != null)
             {
                 NegocioModel aux = (NegocioModel)response.Response;
-                if(aux.contrasena == UberEats.App.NegocioLoged.contrasena)
+                if (aux.contrasena == UberEats.App.NegocioLoged.contrasena)
                 {
                     UberEats.App.NegocioLoged = aux;
 
@@ -93,7 +92,14 @@ namespace UberEats.ViewModels
                 else
                 {
                     Alerta = "Error en usuario o contrasena";
+                    return;
                 }
+                
+            }
+            else
+            { 
+                    Alerta = "Error en usuario o contrasena";
+                    return;
             }
         }
 

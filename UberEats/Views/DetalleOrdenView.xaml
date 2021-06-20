@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:triggers="clr-namespace:UberEats.Triggers"
              x:Class="UberEats.Views.DetalleOrdenView">
     <ContentPage.ToolbarItems>
         <!--BOTON AGREGAR-->
@@ -63,7 +64,13 @@
                     Placeholder="Total $"
                     WidthRequest="100"
                     VerticalOptions="Center"
-                    Text="{Binding Total}"/>
+                    Text="{Binding Total}">
+                    <Entry.Triggers>
+                        <EventTrigger Event="TextChanged">
+                            <triggers:PrecioTrigger/>
+                        </EventTrigger>
+                    </Entry.Triggers>
+                </Entry>
 
             </Grid>
         </StackLayout>
