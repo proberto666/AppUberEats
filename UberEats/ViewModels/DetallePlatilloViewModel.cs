@@ -120,7 +120,7 @@ namespace UberEats.ViewModels
                     IdRestaurante = UberEats.App.RestauranteLoged.IdRestaurante
                 };
 
-                if (platillo.Nombre == null || platillo.Foto == null || platillo.Precio <= 0)
+                if (platillo.Nombre == null || platillo.Foto == null || platillo.Precio <= 0 || platillo.Nombre="")
                 {
                     await Application.Current.MainPage.DisplayAlert("Uber Eats", "No se aceptan campos vacios, por favor llena todos los campos", "OK");
                     return;
